@@ -1,6 +1,0 @@
-com/firefly/core/lending/cards/web/controllers/CcRevolvingLineController.class
-com/firefly/core/lending/cards/web/controllers/CcStatementController.class
-com/firefly/core/lending/cards/web/controllers/CcTransactionController.class
-com/firefly/core/lending/cards/web/controllers/CcPaymentController.class
-com/firefly/core/lending/cards/web/LendingCardsApplication.class
-com/firefly/core/lending/cards/web/controllers/CcBillingCycleController.class
