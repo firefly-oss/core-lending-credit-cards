@@ -1,0 +1,1903 @@
+openapi: 3.0.1
+info:
+  title: core-lending-credit-cards
+  description: Credit Cards Core Application
+  contact:
+    name: Firefly Software Solutions Inc
+    email: dev@getfirefly.io
+  version: 1.0.0
+servers:
+  - url: http://core.catalis.vc/credit-cards
+    description: Development Environment
+  - url: /
+    description: Local Development Environment
+tags:
+  - name: CcStatement
+    description: Monthly statement records for a billing cycle.
+  - name: CcBillingCycle
+    description: Billing cycle records for a credit card revolve line.
+  - name: CcRevolvingLine
+    description: Operations on credit card revolving lines.
+  - name: CcPayment
+    description: Payment records on a revolve line (paying statements, partial payments, etc.).
+  - name: CcTransaction
+    description: Transaction records (purchases, fees, etc.) for a revolve line.
+paths:
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}:
+    get:
+      tags:
+        - CcRevolvingLine
+      summary: Get a revolving line by ID
+      operationId: getById
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcRevolvingLineDTO'
+    put:
+      tags:
+        - CcRevolvingLine
+      summary: Update a revolving line
+      operationId: update
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcRevolvingLineDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcRevolvingLineDTO'
+    delete:
+      tags:
+        - CcRevolvingLine
+      summary: Delete a revolving line
+      operationId: delete
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions/{ccTransactionId}:
+    get:
+      tags:
+        - CcTransaction
+      summary: Get a transaction record by ID
+      operationId: getById_1
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccTransactionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcTransactionDTO'
+    put:
+      tags:
+        - CcTransaction
+      summary: Update a transaction record
+      operationId: update_1
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccTransactionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcTransactionDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcTransactionDTO'
+    delete:
+      tags:
+        - CcTransaction
+      summary: Delete a transaction record
+      operationId: delete_1
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccTransactionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments/{ccPaymentId}:
+    get:
+      tags:
+        - CcPayment
+      summary: Get a payment record by ID
+      operationId: getById_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccPaymentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcPaymentDTO'
+    put:
+      tags:
+        - CcPayment
+      summary: Update a payment record
+      operationId: update_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccPaymentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcPaymentDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcPaymentDTO'
+    delete:
+      tags:
+        - CcPayment
+      summary: Delete a payment record
+      operationId: delete_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccPaymentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}:
+    get:
+      tags:
+        - CcBillingCycle
+      summary: Get a billing cycle by ID
+      operationId: getById_3
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcBillingCycleDTO'
+    put:
+      tags:
+        - CcBillingCycle
+      summary: Update a billing cycle record
+      operationId: update_3
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcBillingCycleDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcBillingCycleDTO'
+    delete:
+      tags:
+        - CcBillingCycle
+      summary: Delete a billing cycle record
+      operationId: delete_3
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements/{ccStatementId}:
+    get:
+      tags:
+        - CcStatement
+      summary: Get a statement by ID
+      operationId: getById_4
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccStatementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcStatementDTO'
+    put:
+      tags:
+        - CcStatement
+      summary: Update a statement record
+      operationId: update_4
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccStatementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcStatementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcStatementDTO'
+    delete:
+      tags:
+        - CcStatement
+      summary: Delete a statement record
+      operationId: delete_4
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccStatementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/cc-revolving-lines:
+    get:
+      tags:
+        - CcRevolvingLine
+      summary: List or search revolving lines
+      operationId: findAll
+      parameters:
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.accountId
+          in: query
+          description: Exact filter for account id
+          required: false
+          schema:
+            type: string
+        - name: filters.cardId
+          in: query
+          description: Exact filter for card id
+          required: false
+          schema:
+            type: string
+        - name: filters.productId
+          in: query
+          description: Exact filter for product id
+          required: false
+          schema:
+            type: string
+        - name: filters.creditLimit
+          in: query
+          description: Exact filter for credit limit
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[creditLimit].from
+          in: query
+          description: Filter credit limit from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[creditLimit].to
+          in: query
+          description: Filter credit limit to value
+          required: false
+          schema:
+            type: string
+        - name: filters.interestRate
+          in: query
+          description: Exact filter for interest rate
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[interestRate].from
+          in: query
+          description: Filter interest rate from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[interestRate].to
+          in: query
+          description: Filter interest rate to value
+          required: false
+          schema:
+            type: string
+        - name: filters.currentBalance
+          in: query
+          description: Exact filter for current balance
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[currentBalance].from
+          in: query
+          description: Filter current balance from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[currentBalance].to
+          in: query
+          description: Filter current balance to value
+          required: false
+          schema:
+            type: string
+        - name: filters.availableCredit
+          in: query
+          description: Exact filter for available credit
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[availableCredit].from
+          in: query
+          description: Filter available credit from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[availableCredit].to
+          in: query
+          description: Filter available credit to value
+          required: false
+          schema:
+            type: string
+        - name: filters.revolveStatus
+          in: query
+          description: Exact filter for revolve status
+          required: false
+          schema:
+            type: string
+            enum:
+              - ACTIVE
+              - BLOCKED
+              - CLOSED
+              - DEFAULT
+              - SUSPENDED
+              - OVERLIMIT
+        - name: filters.remarks
+          in: query
+          description: Exact filter for remarks
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCcRevolvingLineDTO'
+    post:
+      tags:
+        - CcRevolvingLine
+      summary: Create a new revolving line
+      operationId: create
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcRevolvingLineDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcRevolvingLineDTO'
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions:
+    get:
+      tags:
+        - CcTransaction
+      summary: List or search transactions for a revolve line
+      operationId: findAll_1
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.ccRevolvingLineId
+          in: query
+          description: Exact filter for cc revolving line id
+          required: false
+          schema:
+            type: string
+        - name: filters.transactionId
+          in: query
+          description: Exact filter for transaction id
+          required: false
+          schema:
+            type: string
+        - name: filters.transactionAmount
+          in: query
+          description: Exact filter for transaction amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[transactionAmount].from
+          in: query
+          description: Filter transaction amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[transactionAmount].to
+          in: query
+          description: Filter transaction amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.currencyCode
+          in: query
+          description: Exact filter for currency code
+          required: false
+          schema:
+            type: string
+            enum:
+              - EUR
+              - USD
+              - GBP
+              - CHF
+        - name: filters.transactionDate
+          in: query
+          description: Exact filter for transaction date
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[transactionDate].from
+          in: query
+          description: Filter transaction date from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[transactionDate].to
+          in: query
+          description: Filter transaction date to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.transactionType
+          in: query
+          description: Exact filter for transaction type
+          required: false
+          schema:
+            type: string
+            enum:
+              - PURCHASE
+              - CASH_ADVANCE
+              - FEE
+              - INTEREST
+              - REFUND
+              - CREDIT
+              - PAYMENT
+        - name: filters.transactionStatus
+          in: query
+          description: Exact filter for transaction status
+          required: false
+          schema:
+            type: string
+            enum:
+              - AUTHORIZED
+              - POSTED
+              - REVERSED
+              - DECLINED
+              - PENDING
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCcTransactionDTO'
+    post:
+      tags:
+        - CcTransaction
+      summary: Create a new transaction record
+      operationId: create_1
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcTransactionDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcTransactionDTO'
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments:
+    get:
+      tags:
+        - CcPayment
+      summary: List or search payments for a revolve line
+      operationId: findAll_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.ccRevolvingLineId
+          in: query
+          description: Exact filter for cc revolving line id
+          required: false
+          schema:
+            type: string
+        - name: filters.ccStatementId
+          in: query
+          description: Exact filter for cc statement id
+          required: false
+          schema:
+            type: string
+        - name: filters.transactionId
+          in: query
+          description: Exact filter for transaction id
+          required: false
+          schema:
+            type: string
+        - name: filters.paymentAmount
+          in: query
+          description: Exact filter for payment amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[paymentAmount].from
+          in: query
+          description: Filter payment amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[paymentAmount].to
+          in: query
+          description: Filter payment amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.paymentDate
+          in: query
+          description: Exact filter for payment date
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[paymentDate].from
+          in: query
+          description: Filter payment date from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[paymentDate].to
+          in: query
+          description: Filter payment date to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.isPartialPayment
+          in: query
+          description: Exact filter for is partial payment
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCcPaymentDTO'
+    post:
+      tags:
+        - CcPayment
+      summary: Create a new payment record
+      operationId: create_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcPaymentDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcPaymentDTO'
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles:
+    get:
+      tags:
+        - CcBillingCycle
+      summary: List or search billing cycles for a revolve line
+      operationId: findAll_3
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.ccRevolvingLineId
+          in: query
+          description: Exact filter for cc revolving line id
+          required: false
+          schema:
+            type: string
+        - name: filters.cycleStartDate
+          in: query
+          description: Exact filter for cycle start date
+          required: false
+          schema:
+            type: string
+        - name: filters.cycleEndDate
+          in: query
+          description: Exact filter for cycle end date
+          required: false
+          schema:
+            type: string
+        - name: filters.cycleOpenBalance
+          in: query
+          description: Exact filter for cycle open balance
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[cycleOpenBalance].from
+          in: query
+          description: Filter cycle open balance from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[cycleOpenBalance].to
+          in: query
+          description: Filter cycle open balance to value
+          required: false
+          schema:
+            type: string
+        - name: filters.cycleCloseBalance
+          in: query
+          description: Exact filter for cycle close balance
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[cycleCloseBalance].from
+          in: query
+          description: Filter cycle close balance from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[cycleCloseBalance].to
+          in: query
+          description: Filter cycle close balance to value
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCcBillingCycleDTO'
+    post:
+      tags:
+        - CcBillingCycle
+      summary: Create a new billing cycle record
+      operationId: create_3
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcBillingCycleDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcBillingCycleDTO'
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements:
+    get:
+      tags:
+        - CcStatement
+      summary: List or search statements within a billing cycle
+      operationId: findAll_4
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.ccBillingCycleId
+          in: query
+          description: Exact filter for cc billing cycle id
+          required: false
+          schema:
+            type: string
+        - name: filters.statementDate
+          in: query
+          description: Exact filter for statement date
+          required: false
+          schema:
+            type: string
+        - name: filters.statementBalance
+          in: query
+          description: Exact filter for statement balance
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[statementBalance].from
+          in: query
+          description: Filter statement balance from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[statementBalance].to
+          in: query
+          description: Filter statement balance to value
+          required: false
+          schema:
+            type: string
+        - name: filters.minimumPayment
+          in: query
+          description: Exact filter for minimum payment
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[minimumPayment].from
+          in: query
+          description: Filter minimum payment from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[minimumPayment].to
+          in: query
+          description: Filter minimum payment to value
+          required: false
+          schema:
+            type: string
+        - name: filters.paymentDueDate
+          in: query
+          description: Exact filter for payment due date
+          required: false
+          schema:
+            type: string
+        - name: filters.isPaid
+          in: query
+          description: Exact filter for is paid
+          required: false
+          schema:
+            type: boolean
+        - name: filters.paidDate
+          in: query
+          description: Exact filter for paid date
+          required: false
+          schema:
+            type: string
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCcStatementDTO'
+    post:
+      tags:
+        - CcStatement
+      summary: Create a new statement
+      operationId: create_4
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccBillingCycleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcStatementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcStatementDTO'
+components:
+  schemas:
+    CcRevolvingLineDTO:
+      required:
+        - accountId
+        - availableCredit
+        - cardId
+        - creditLimit
+        - currentBalance
+        - interestRate
+        - revolveStatus
+      type: object
+      properties:
+        ccRevolvingLineId:
+          type: string
+          format: uuid
+          readOnly: true
+        accountId:
+          type: string
+          format: uuid
+        cardId:
+          type: string
+          format: uuid
+        productId:
+          type: string
+          format: uuid
+        creditLimit:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        interestRate:
+          maximum: 1
+          exclusiveMaximum: false
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        currentBalance:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: -999999999.99
+          exclusiveMinimum: false
+          type: number
+        availableCredit:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        revolveStatus:
+          type: string
+          enum:
+            - ACTIVE
+            - BLOCKED
+            - CLOSED
+            - DEFAULT
+            - SUSPENDED
+            - OVERLIMIT
+        remarks:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    CcTransactionDTO:
+      required:
+        - ccRevolvingLineId
+        - currencyCode
+        - transactionAmount
+        - transactionDate
+        - transactionStatus
+        - transactionType
+      type: object
+      properties:
+        ccTransactionId:
+          type: string
+          format: uuid
+          readOnly: true
+        ccRevolvingLineId:
+          type: string
+          format: uuid
+        transactionId:
+          type: string
+          format: uuid
+        transactionAmount:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: -999999999.99
+          exclusiveMinimum: false
+          type: number
+        currencyCode:
+          type: string
+          enum:
+            - EUR
+            - USD
+            - GBP
+            - CHF
+        transactionDate:
+          type: string
+          format: date-time
+        transactionType:
+          type: string
+          enum:
+            - PURCHASE
+            - CASH_ADVANCE
+            - FEE
+            - INTEREST
+            - REFUND
+            - CREDIT
+            - PAYMENT
+        transactionStatus:
+          type: string
+          enum:
+            - AUTHORIZED
+            - POSTED
+            - REVERSED
+            - DECLINED
+            - PENDING
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    CcPaymentDTO:
+      required:
+        - ccRevolvingLineId
+        - isPartialPayment
+        - paymentAmount
+        - paymentDate
+      type: object
+      properties:
+        ccPaymentId:
+          type: string
+          format: uuid
+          readOnly: true
+        ccRevolvingLineId:
+          type: string
+          format: uuid
+        ccStatementId:
+          type: string
+          format: uuid
+        transactionId:
+          type: string
+          format: uuid
+        paymentAmount:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: 0.01
+          exclusiveMinimum: false
+          type: number
+        paymentDate:
+          type: string
+          format: date-time
+        isPartialPayment:
+          type: boolean
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    CcBillingCycleDTO:
+      required:
+        - ccRevolvingLineId
+        - cycleCloseBalance
+        - cycleEndDate
+        - cycleOpenBalance
+        - cycleStartDate
+      type: object
+      properties:
+        ccBillingCycleId:
+          type: string
+          format: uuid
+          readOnly: true
+        ccRevolvingLineId:
+          type: string
+          format: uuid
+        cycleStartDate:
+          type: string
+          format: date
+        cycleEndDate:
+          type: string
+          format: date
+        cycleOpenBalance:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: -999999999.99
+          exclusiveMinimum: false
+          type: number
+        cycleCloseBalance:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: -999999999.99
+          exclusiveMinimum: false
+          type: number
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    CcStatementDTO:
+      required:
+        - ccBillingCycleId
+        - isPaid
+        - minimumPayment
+        - paymentDueDate
+        - statementBalance
+        - statementDate
+      type: object
+      properties:
+        ccStatementId:
+          type: string
+          format: uuid
+          readOnly: true
+        ccBillingCycleId:
+          type: string
+          format: uuid
+        statementDate:
+          type: string
+          format: date
+        statementBalance:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: -999999999.99
+          exclusiveMinimum: false
+          type: number
+        minimumPayment:
+          maximum: 999999999.99
+          exclusiveMaximum: false
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        paymentDueDate:
+          type: string
+          format: date
+        isPaid:
+          type: boolean
+        paidDate:
+          type: string
+          format: date
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    PaginationResponseCcRevolvingLineDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CcRevolvingLineDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCcTransactionDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CcTransactionDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCcPaymentDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CcPaymentDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCcBillingCycleDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CcBillingCycleDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCcStatementDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CcStatementDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
