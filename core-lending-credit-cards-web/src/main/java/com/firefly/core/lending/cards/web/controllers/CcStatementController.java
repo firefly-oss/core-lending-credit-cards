@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements")
 @Tag(name = "CcStatement", description = "Monthly statement records for a billing cycle.")
@@ -22,8 +24,8 @@ public class CcStatementController {
     @GetMapping
     @Operation(summary = "List or search statements within a billing cycle")
     public Mono<ResponseEntity<PaginationResponse<CcStatementDTO>>> findAll(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccBillingCycleId,
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccBillingCycleId,
             @ModelAttribute FilterRequest<CcStatementDTO> filterRequest) {
 
         return service.findAll(ccRevolvingLineId, ccBillingCycleId, filterRequest)
@@ -33,8 +35,8 @@ public class CcStatementController {
     @PostMapping
     @Operation(summary = "Create a new statement")
     public Mono<ResponseEntity<CcStatementDTO>> create(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccBillingCycleId,
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccBillingCycleId,
             @RequestBody CcStatementDTO dto) {
 
         return service.create(ccRevolvingLineId, ccBillingCycleId, dto)
@@ -44,9 +46,9 @@ public class CcStatementController {
     @GetMapping("/{ccStatementId}")
     @Operation(summary = "Get a statement by ID")
     public Mono<ResponseEntity<CcStatementDTO>> getById(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccBillingCycleId,
-            @PathVariable Long ccStatementId) {
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccBillingCycleId,
+            @PathVariable UUID ccStatementId) {
 
         return service.getById(ccRevolvingLineId, ccBillingCycleId, ccStatementId)
                 .map(ResponseEntity::ok);
@@ -55,9 +57,9 @@ public class CcStatementController {
     @PutMapping("/{ccStatementId}")
     @Operation(summary = "Update a statement record")
     public Mono<ResponseEntity<CcStatementDTO>> update(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccBillingCycleId,
-            @PathVariable Long ccStatementId,
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccBillingCycleId,
+            @PathVariable UUID ccStatementId,
             @RequestBody CcStatementDTO dto) {
 
         return service.update(ccRevolvingLineId, ccBillingCycleId, ccStatementId, dto)
@@ -67,9 +69,9 @@ public class CcStatementController {
     @DeleteMapping("/{ccStatementId}")
     @Operation(summary = "Delete a statement record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccBillingCycleId,
-            @PathVariable Long ccStatementId) {
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccBillingCycleId,
+            @PathVariable UUID ccStatementId) {
 
         return service.delete(ccRevolvingLineId, ccBillingCycleId, ccStatementId)
                 .thenReturn(ResponseEntity.noContent().build());

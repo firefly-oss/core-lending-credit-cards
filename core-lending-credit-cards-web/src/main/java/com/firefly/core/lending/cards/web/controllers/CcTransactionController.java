@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions")
 @Tag(name = "CcTransaction", description = "Transaction records (purchases, fees, etc.) for a revolve line.")
@@ -22,7 +24,7 @@ public class CcTransactionController {
     @GetMapping
     @Operation(summary = "List or search transactions for a revolve line")
     public Mono<ResponseEntity<PaginationResponse<CcTransactionDTO>>> findAll(
-            @PathVariable Long ccRevolvingLineId,
+            @PathVariable UUID ccRevolvingLineId,
             @ModelAttribute FilterRequest<CcTransactionDTO> filterRequest) {
 
         return service.findAll(ccRevolvingLineId, filterRequest)
@@ -32,7 +34,7 @@ public class CcTransactionController {
     @PostMapping
     @Operation(summary = "Create a new transaction record")
     public Mono<ResponseEntity<CcTransactionDTO>> create(
-            @PathVariable Long ccRevolvingLineId,
+            @PathVariable UUID ccRevolvingLineId,
             @RequestBody CcTransactionDTO dto) {
 
         return service.create(ccRevolvingLineId, dto)
@@ -42,8 +44,8 @@ public class CcTransactionController {
     @GetMapping("/{ccTransactionId}")
     @Operation(summary = "Get a transaction record by ID")
     public Mono<ResponseEntity<CcTransactionDTO>> getById(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccTransactionId) {
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccTransactionId) {
 
         return service.getById(ccRevolvingLineId, ccTransactionId)
                 .map(ResponseEntity::ok);
@@ -52,8 +54,8 @@ public class CcTransactionController {
     @PutMapping("/{ccTransactionId}")
     @Operation(summary = "Update a transaction record")
     public Mono<ResponseEntity<CcTransactionDTO>> update(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccTransactionId,
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccTransactionId,
             @RequestBody CcTransactionDTO dto) {
 
         return service.update(ccRevolvingLineId, ccTransactionId, dto)
@@ -63,8 +65,8 @@ public class CcTransactionController {
     @DeleteMapping("/{ccTransactionId}")
     @Operation(summary = "Delete a transaction record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long ccRevolvingLineId,
-            @PathVariable Long ccTransactionId) {
+            @PathVariable UUID ccRevolvingLineId,
+            @PathVariable UUID ccTransactionId) {
 
         return service.delete(ccRevolvingLineId, ccTransactionId)
                 .thenReturn(ResponseEntity.noContent().build());
