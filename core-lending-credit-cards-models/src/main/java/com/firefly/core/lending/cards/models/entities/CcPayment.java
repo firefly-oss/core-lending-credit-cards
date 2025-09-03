@@ -10,6 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -20,16 +21,16 @@ public class CcPayment {
 
     @Id
     @Column("cc_payment_id")
-    private Long ccPaymentId;
+    private UUID ccPaymentId;
 
     @Column("cc_revolving_line_id")
-    private Long ccRevolvingLineId; // references CcRevolvingLine
+    private UUID ccRevolvingLineId; // references CcRevolvingLine
 
     @Column("cc_statement_id")
-    private Long ccStatementId;     // optional link to a CcStatement
+    private UUID ccStatementId;     // optional link to a CcStatement
 
     @Column("transaction_id")
-    private Long transactionId;     // external ref to Payment domain
+    private UUID transactionId;     // external ref to Payment domain
 
     @Column("payment_amount")
     private BigDecimal paymentAmount;

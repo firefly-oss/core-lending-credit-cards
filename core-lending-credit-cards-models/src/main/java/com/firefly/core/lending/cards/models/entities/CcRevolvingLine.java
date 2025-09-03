@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,16 +22,16 @@ public class CcRevolvingLine {
 
     @Id
     @Column("cc_revolving_line_id")
-    private Long ccRevolvingLineId;
+    private UUID ccRevolvingLineId;
 
     @Column("account_id")
-    private Long accountId;   // external reference to Accounts domain
+    private UUID accountId;   // external reference to Accounts domain
 
     @Column("card_id")
-    private Long cardId;      // external reference to Card Management domain
+    private UUID cardId;      // external reference to Card Management domain
 
     @Column("product_id")
-    private Long productId;   // external reference to Product domain (if relevant)
+    private UUID productId;   // external reference to Product domain (if relevant)
 
     @Column("credit_limit")
     private BigDecimal creditLimit;

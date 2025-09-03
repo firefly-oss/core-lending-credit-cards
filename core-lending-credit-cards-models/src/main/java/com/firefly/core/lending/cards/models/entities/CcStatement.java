@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,10 +22,10 @@ public class CcStatement {
 
     @Id
     @Column("cc_statement_id")
-    private Long ccStatementId;
+    private UUID ccStatementId;
 
     @Column("cc_billing_cycle_id")
-    private Long ccBillingCycleId; // references CcBillingCycle
+    private UUID ccBillingCycleId; // references CcBillingCycle
 
     @Column("statement_date")
     private LocalDate statementDate;

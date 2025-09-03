@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -23,13 +24,13 @@ public class CcTransaction {
 
     @Id
     @Column("cc_transaction_id")
-    private Long ccTransactionId;
+    private UUID ccTransactionId;
 
     @Column("cc_revolving_line_id")
-    private Long ccRevolvingLineId; // references CcRevolvingLine
+    private UUID ccRevolvingLineId; // references CcRevolvingLine
 
     @Column("transaction_id")
-    private Long transactionId;      // external ref (Transactions domain)
+    private UUID transactionId;      // external ref (Transactions domain)
 
     @Column("transaction_amount")
     private BigDecimal transactionAmount;
