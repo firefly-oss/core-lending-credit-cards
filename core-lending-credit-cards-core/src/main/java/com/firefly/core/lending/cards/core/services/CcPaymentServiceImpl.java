@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -25,7 +26,7 @@ public class CcPaymentServiceImpl implements CcPaymentService {
     private CcPaymentMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CcPaymentDTO>> findAll(Long ccRevolvingLineId, FilterRequest<CcPaymentDTO> filterRequest) {
+    public Mono<PaginationResponse<CcPaymentDTO>> findAll(UUID ccRevolvingLineId, FilterRequest<CcPaymentDTO> filterRequest) {
         filterRequest.getFilters().setCcRevolvingLineId(ccRevolvingLineId);
         return FilterUtils.createFilter(
                 CcPayment.class,
@@ -34,7 +35,7 @@ public class CcPaymentServiceImpl implements CcPaymentService {
     }
 
     @Override
-    public Mono<CcPaymentDTO> create(Long ccRevolvingLineId, CcPaymentDTO dto) {
+    public Mono<CcPaymentDTO> create(UUID ccRevolvingLineId, CcPaymentDTO dto) {
         dto.setCcRevolvingLineId(ccRevolvingLineId);
         return Mono.just(dto)
                 .map(mapper::toEntity)
@@ -48,14 +49,14 @@ public class CcPaymentServiceImpl implements CcPaymentService {
     }
 
     @Override
-    public Mono<CcPaymentDTO> getById(Long ccRevolvingLineId, Long ccPaymentId) {
+    public Mono<CcPaymentDTO> getById(UUID ccRevolvingLineId, UUID ccPaymentId) {
         return repository.findById(ccPaymentId)
                 .filter(payment -> payment.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CcPaymentDTO> update(Long ccRevolvingLineId, Long ccPaymentId, CcPaymentDTO dto) {
+    public Mono<CcPaymentDTO> update(UUID ccRevolvingLineId, UUID ccPaymentId, CcPaymentDTO dto) {
         return repository.findById(ccPaymentId)
                 .filter(payment -> payment.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .flatMap(existing -> {
@@ -69,7 +70,7 @@ public class CcPaymentServiceImpl implements CcPaymentService {
     }
 
     @Override
-    public Mono<Void> delete(Long ccRevolvingLineId, Long ccPaymentId) {
+    public Mono<Void> delete(UUID ccRevolvingLineId, UUID ccPaymentId) {
         return repository.findById(ccPaymentId)
                 .filter(payment -> payment.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .flatMap(repository::delete);

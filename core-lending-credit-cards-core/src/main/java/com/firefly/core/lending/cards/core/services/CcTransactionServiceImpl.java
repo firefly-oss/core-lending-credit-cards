@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CcTransactionServiceImpl implements CcTransactionService {
@@ -23,7 +25,7 @@ public class CcTransactionServiceImpl implements CcTransactionService {
     private CcTransactionMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CcTransactionDTO>> findAll(Long ccRevolvingLineId, FilterRequest<CcTransactionDTO> filterRequest) {
+    public Mono<PaginationResponse<CcTransactionDTO>> findAll(UUID ccRevolvingLineId, FilterRequest<CcTransactionDTO> filterRequest) {
         filterRequest.getFilters().setCcRevolvingLineId(ccRevolvingLineId);
         return FilterUtils.createFilter(
                 CcTransaction.class,
@@ -32,7 +34,7 @@ public class CcTransactionServiceImpl implements CcTransactionService {
     }
 
     @Override
-    public Mono<CcTransactionDTO> create(Long ccRevolvingLineId, CcTransactionDTO dto) {
+    public Mono<CcTransactionDTO> create(UUID ccRevolvingLineId, CcTransactionDTO dto) {
         dto.setCcRevolvingLineId(ccRevolvingLineId);
         CcTransaction entity = mapper.toEntity(dto);
         return repository.save(entity)
@@ -40,14 +42,14 @@ public class CcTransactionServiceImpl implements CcTransactionService {
     }
 
     @Override
-    public Mono<CcTransactionDTO> getById(Long ccRevolvingLineId, Long ccTransactionId) {
+    public Mono<CcTransactionDTO> getById(UUID ccRevolvingLineId, UUID ccTransactionId) {
         return repository.findById(ccTransactionId)
                 .filter(transaction -> transaction.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CcTransactionDTO> update(Long ccRevolvingLineId, Long ccTransactionId, CcTransactionDTO dto) {
+    public Mono<CcTransactionDTO> update(UUID ccRevolvingLineId, UUID ccTransactionId, CcTransactionDTO dto) {
         return repository.findById(ccTransactionId)
                 .filter(transaction -> transaction.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .flatMap(existingTransaction -> {
@@ -60,7 +62,7 @@ public class CcTransactionServiceImpl implements CcTransactionService {
     }
 
     @Override
-    public Mono<Void> delete(Long ccRevolvingLineId, Long ccTransactionId) {
+    public Mono<Void> delete(UUID ccRevolvingLineId, UUID ccTransactionId) {
         return repository.findById(ccTransactionId)
                 .filter(transaction -> transaction.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .flatMap(repository::delete);

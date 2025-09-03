@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CcRevolvingLineServiceImpl implements CcRevolvingLineService {
@@ -38,14 +40,14 @@ public class CcRevolvingLineServiceImpl implements CcRevolvingLineService {
     }
 
     @Override
-    public Mono<CcRevolvingLineDTO> getById(Long ccRevolvingLineId) {
+    public Mono<CcRevolvingLineDTO> getById(UUID ccRevolvingLineId) {
         return repository.findById(ccRevolvingLineId)
                 .map(mapper::toDTO)
                 .switchIfEmpty(Mono.error(new RuntimeException("CcRevolvingLine not found")));
     }
 
     @Override
-    public Mono<CcRevolvingLineDTO> update(Long ccRevolvingLineId, CcRevolvingLineDTO dto) {
+    public Mono<CcRevolvingLineDTO> update(UUID ccRevolvingLineId, CcRevolvingLineDTO dto) {
         return repository.findById(ccRevolvingLineId)
                 .switchIfEmpty(Mono.error(new RuntimeException("CcRevolvingLine not found")))
                 .flatMap(existing -> {
@@ -57,7 +59,7 @@ public class CcRevolvingLineServiceImpl implements CcRevolvingLineService {
     }
 
     @Override
-    public Mono<Void> delete(Long ccRevolvingLineId) {
+    public Mono<Void> delete(UUID ccRevolvingLineId) {
         return repository.findById(ccRevolvingLineId)
                 .switchIfEmpty(Mono.error(new RuntimeException("CcRevolvingLine not found")))
                 .flatMap(existing -> repository.deleteById(ccRevolvingLineId));

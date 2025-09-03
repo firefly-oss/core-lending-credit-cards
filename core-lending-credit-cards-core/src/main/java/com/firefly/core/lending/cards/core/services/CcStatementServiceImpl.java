@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CcStatementServiceImpl implements CcStatementService {
@@ -23,7 +25,7 @@ public class CcStatementServiceImpl implements CcStatementService {
     private CcStatementMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CcStatementDTO>> findAll(Long ccRevolvingLineId, Long ccBillingCycleId, FilterRequest<CcStatementDTO> filterRequest) {
+    public Mono<PaginationResponse<CcStatementDTO>> findAll(UUID ccRevolvingLineId, UUID ccBillingCycleId, FilterRequest<CcStatementDTO> filterRequest) {
         filterRequest.getFilters().setCcBillingCycleId(ccBillingCycleId);
         return FilterUtils.createFilter(
                 CcStatement.class,
@@ -32,7 +34,7 @@ public class CcStatementServiceImpl implements CcStatementService {
     }
 
     @Override
-    public Mono<CcStatementDTO> create(Long ccRevolvingLineId, Long ccBillingCycleId, CcStatementDTO dto) {
+    public Mono<CcStatementDTO> create(UUID ccRevolvingLineId, UUID ccBillingCycleId, CcStatementDTO dto) {
         dto.setCcBillingCycleId(ccBillingCycleId);
         CcStatement entity = mapper.toEntity(dto);
         return repository.save(entity)
@@ -40,14 +42,14 @@ public class CcStatementServiceImpl implements CcStatementService {
     }
 
     @Override
-    public Mono<CcStatementDTO> getById(Long ccRevolvingLineId, Long ccBillingCycleId, Long ccStatementId) {
+    public Mono<CcStatementDTO> getById(UUID ccRevolvingLineId, UUID ccBillingCycleId, UUID ccStatementId) {
         return repository.findById(ccStatementId)
                 .filter(entity -> ccBillingCycleId.equals(entity.getCcBillingCycleId()))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CcStatementDTO> update(Long ccRevolvingLineId, Long ccBillingCycleId, Long ccStatementId, CcStatementDTO dto) {
+    public Mono<CcStatementDTO> update(UUID ccRevolvingLineId, UUID ccBillingCycleId, UUID ccStatementId, CcStatementDTO dto) {
         return repository.findById(ccStatementId)
                 .filter(entity -> ccBillingCycleId.equals(entity.getCcBillingCycleId()))
                 .flatMap(existingEntity -> {
@@ -60,7 +62,7 @@ public class CcStatementServiceImpl implements CcStatementService {
     }
 
     @Override
-    public Mono<Void> delete(Long ccRevolvingLineId, Long ccBillingCycleId, Long ccStatementId) {
+    public Mono<Void> delete(UUID ccRevolvingLineId, UUID ccBillingCycleId, UUID ccStatementId) {
         return repository.findById(ccStatementId)
                 .filter(entity -> ccBillingCycleId.equals(entity.getCcBillingCycleId()))
                 .flatMap(repository::delete);

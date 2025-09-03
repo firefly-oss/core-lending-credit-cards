@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.MonoSink;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CcBillingCycleServiceImpl implements CcBillingCycleService {
@@ -24,7 +26,7 @@ public class CcBillingCycleServiceImpl implements CcBillingCycleService {
     private CcBillingCycleMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CcBillingCycleDTO>> findAll(Long ccRevolvingLineId, FilterRequest<CcBillingCycleDTO> filterRequest) {
+    public Mono<PaginationResponse<CcBillingCycleDTO>> findAll(UUID ccRevolvingLineId, FilterRequest<CcBillingCycleDTO> filterRequest) {
         filterRequest.getFilters().setCcRevolvingLineId(ccRevolvingLineId);
         return FilterUtils.createFilter(
                 CcBillingCycle.class,
@@ -33,7 +35,7 @@ public class CcBillingCycleServiceImpl implements CcBillingCycleService {
     }
 
     @Override
-    public Mono<CcBillingCycleDTO> create(Long ccRevolvingLineId, CcBillingCycleDTO dto) {
+    public Mono<CcBillingCycleDTO> create(UUID ccRevolvingLineId, CcBillingCycleDTO dto) {
         dto.setCcRevolvingLineId(ccRevolvingLineId);
         CcBillingCycle entity = mapper.toEntity(dto);
         return Mono.from(repository.save(entity))
@@ -41,14 +43,14 @@ public class CcBillingCycleServiceImpl implements CcBillingCycleService {
     }
 
     @Override
-    public Mono<CcBillingCycleDTO> getById(Long ccRevolvingLineId, Long ccBillingCycleId) {
+    public Mono<CcBillingCycleDTO> getById(UUID ccRevolvingLineId, UUID ccBillingCycleId) {
         return Mono.from(repository.findById(ccBillingCycleId))
                 .filter(entity -> entity.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CcBillingCycleDTO> update(Long ccRevolvingLineId, Long ccBillingCycleId, CcBillingCycleDTO dto) {
+    public Mono<CcBillingCycleDTO> update(UUID ccRevolvingLineId, UUID ccBillingCycleId, CcBillingCycleDTO dto) {
         return Mono.from(repository.findById(ccBillingCycleId))
                 .filter(entity -> entity.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .flatMap(existingEntity -> {
@@ -63,7 +65,7 @@ public class CcBillingCycleServiceImpl implements CcBillingCycleService {
     }
 
     @Override
-    public Mono<Void> delete(Long ccRevolvingLineId, Long ccBillingCycleId) {
+    public Mono<Void> delete(UUID ccRevolvingLineId, UUID ccBillingCycleId) {
         return Mono.from(repository.findById(ccBillingCycleId))
                 .filter(entity -> entity.getCcRevolvingLineId().equals(ccRevolvingLineId))
                 .flatMap(existingEntity -> Mono.<Void>create(MonoSink::success).then(repository.delete(existingEntity)));

@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.cards.interfaces.dtos.CcTransactionDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CcTransactionService {
 
     /**
@@ -18,7 +20,7 @@ public interface CcTransactionService {
      * @return a reactive Mono emitting a paginated response containing the list of
      *         CcTransactionDTO objects that match the given criteria
      */
-    Mono<PaginationResponse<CcTransactionDTO>> findAll(Long ccRevolvingLineId,
+    Mono<PaginationResponse<CcTransactionDTO>> findAll(UUID ccRevolvingLineId,
                                                        FilterRequest<CcTransactionDTO> filterRequest);
 
     /**
@@ -32,7 +34,7 @@ public interface CcTransactionService {
      * @return a {@code Mono<CcTransactionDTO>} emitting the created transaction details
      *         upon successful creation
      */
-    Mono<CcTransactionDTO> create(Long ccRevolvingLineId, CcTransactionDTO dto);
+    Mono<CcTransactionDTO> create(UUID ccRevolvingLineId, CcTransactionDTO dto);
 
     /**
      * Retrieves a specific credit card transaction associated with the given
@@ -44,7 +46,7 @@ public interface CcTransactionService {
      * @return a {@code Mono<CcTransactionDTO>} emitting the details of the transaction
      *         upon successful retrieval or an empty {@code Mono} if the transaction is not found
      */
-    Mono<CcTransactionDTO> getById(Long ccRevolvingLineId, Long ccTransactionId);
+    Mono<CcTransactionDTO> getById(UUID ccRevolvingLineId, UUID ccTransactionId);
 
     /**
      * Updates an existing credit card transaction associated with the specified
@@ -56,7 +58,7 @@ public interface CcTransactionService {
      * @param dto the {@code CcTransactionDTO} object containing the updated details of the credit card transaction
      * @return a {@code Mono<CcTransactionDTO>} emitting the updated transaction details upon successful completion
      */
-    Mono<CcTransactionDTO> update(Long ccRevolvingLineId, Long ccTransactionId, CcTransactionDTO dto);
+    Mono<CcTransactionDTO> update(UUID ccRevolvingLineId, UUID ccTransactionId, CcTransactionDTO dto);
 
     /**
      * Deletes a specific credit card transaction identified by the provided revolving line ID
@@ -67,5 +69,5 @@ public interface CcTransactionService {
      * @param ccTransactionId   the unique identifier of the transaction to be deleted
      * @return a {@code Mono<Void>} that represents the completion of the delete operation
      */
-    Mono<Void> delete(Long ccRevolvingLineId, Long ccTransactionId);
+    Mono<Void> delete(UUID ccRevolvingLineId, UUID ccTransactionId);
 }

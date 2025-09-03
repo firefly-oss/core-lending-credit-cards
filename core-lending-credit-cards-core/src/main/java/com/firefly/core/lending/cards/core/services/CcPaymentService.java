@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.cards.interfaces.dtos.CcPaymentDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CcPaymentService {
 
     /**
@@ -18,7 +20,7 @@ public interface CcPaymentService {
      * @return a reactive Mono emitting a paginated response containing the list of
      *         CcPaymentDTO objects that match the given criteria
      */
-    Mono<PaginationResponse<CcPaymentDTO>> findAll(Long ccRevolvingLineId,
+    Mono<PaginationResponse<CcPaymentDTO>> findAll(UUID ccRevolvingLineId,
                                                    FilterRequest<CcPaymentDTO> filterRequest);
 
     /**
@@ -31,7 +33,7 @@ public interface CcPaymentService {
      *            to be created
      * @return a {@code Mono<CcPaymentDTO>} emitting the created payment DTO upon successful creation
      */
-    Mono<CcPaymentDTO> create(Long ccRevolvingLineId, CcPaymentDTO dto);
+    Mono<CcPaymentDTO> create(UUID ccRevolvingLineId, CcPaymentDTO dto);
 
     /**
      * Retrieves a specific credit card payment associated with the given revolving line ID and payment ID.
@@ -42,7 +44,7 @@ public interface CcPaymentService {
      * @return a {@code Mono<CcPaymentDTO>} emitting the details of the payment upon successful retrieval
      *         or an empty {@code Mono} if the payment is not found
      */
-    Mono<CcPaymentDTO> getById(Long ccRevolvingLineId, Long ccPaymentId);
+    Mono<CcPaymentDTO> getById(UUID ccRevolvingLineId, UUID ccPaymentId);
 
     /**
      * Updates an existing credit card payment associated with the specified revolving line
@@ -57,7 +59,7 @@ public interface CcPaymentService {
      * @return a {@code Mono<CcPaymentDTO>} emitting the updated credit card payment details
      *         upon successful completion
      */
-    Mono<CcPaymentDTO> update(Long ccRevolvingLineId, Long ccPaymentId, CcPaymentDTO dto);
+    Mono<CcPaymentDTO> update(UUID ccRevolvingLineId, UUID ccPaymentId, CcPaymentDTO dto);
 
     /**
      * Deletes a specific credit card payment identified by the provided revolving line ID
@@ -68,5 +70,5 @@ public interface CcPaymentService {
      * @param ccPaymentId       the unique identifier of the payment to be deleted
      * @return a {@code Mono<Void>} that represents the completion of the delete operation
      */
-    Mono<Void> delete(Long ccRevolvingLineId, Long ccPaymentId);
+    Mono<Void> delete(UUID ccRevolvingLineId, UUID ccPaymentId);
 }

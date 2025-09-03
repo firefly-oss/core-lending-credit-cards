@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.cards.interfaces.dtos.CcBillingCycleDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CcBillingCycleService {
 
     /**
@@ -18,7 +20,7 @@ public interface CcBillingCycleService {
      * @return a reactive Mono containing the paginated response of
      *         CcBillingCycleDTO objects matching the criteria
      */
-    Mono<PaginationResponse<CcBillingCycleDTO>> findAll(Long ccRevolvingLineId,
+    Mono<PaginationResponse<CcBillingCycleDTO>> findAll(UUID ccRevolvingLineId,
                                                         FilterRequest<CcBillingCycleDTO> filterRequest);
 
     /**
@@ -31,7 +33,7 @@ public interface CcBillingCycleService {
      * @return a {@code Mono<CcBillingCycleDTO>} emitting the created billing cycle DTO
      *         upon successful completion
      */
-    Mono<CcBillingCycleDTO> create(Long ccRevolvingLineId, CcBillingCycleDTO dto);
+    Mono<CcBillingCycleDTO> create(UUID ccRevolvingLineId, CcBillingCycleDTO dto);
 
     /**
      * Retrieves a specific billing cycle associated with a given revolving line and billing cycle ID.
@@ -40,7 +42,7 @@ public interface CcBillingCycleService {
      * @param ccBillingCycleId the ID of the billing cycle to be retrieved
      * @return a Mono emitting the CcBillingCycleDTO if found, or an empty Mono if not found
      */
-    Mono<CcBillingCycleDTO> getById(Long ccRevolvingLineId, Long ccBillingCycleId);
+    Mono<CcBillingCycleDTO> getById(UUID ccRevolvingLineId, UUID ccBillingCycleId);
 
     /**
      * Updates an existing billing cycle identified by the provided IDs with new information.
@@ -50,7 +52,7 @@ public interface CcBillingCycleService {
      * @param dto the {@code CcBillingCycleDTO} object containing the updated details of the billing cycle
      * @return a {@code Mono<CcBillingCycleDTO>} emitting the updated billing cycle details upon successful completion
      */
-    Mono<CcBillingCycleDTO> update(Long ccRevolvingLineId, Long ccBillingCycleId, CcBillingCycleDTO dto);
+    Mono<CcBillingCycleDTO> update(UUID ccRevolvingLineId, UUID ccBillingCycleId, CcBillingCycleDTO dto);
 
     /**
      * Deletes a Credit Card Billing Cycle identified by the provided Credit Card Revolving Line ID and
@@ -61,5 +63,5 @@ public interface CcBillingCycleService {
      * @param ccBillingCycleId  the unique identifier of the billing cycle to be deleted
      * @return a {@code Mono<Void>} that completes when the deletion is successful
      */
-    Mono<Void> delete(Long ccRevolvingLineId, Long ccBillingCycleId);
+    Mono<Void> delete(UUID ccRevolvingLineId, UUID ccBillingCycleId);
 }

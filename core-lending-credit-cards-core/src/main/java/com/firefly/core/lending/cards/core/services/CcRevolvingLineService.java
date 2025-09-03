@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.cards.interfaces.dtos.CcRevolvingLineDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CcRevolvingLineService {
 
     /**
@@ -31,7 +33,7 @@ public interface CcRevolvingLineService {
      * @param ccRevolvingLineId the ID of the revolving line to be retrieved
      * @return a Mono emitting the CcRevolvingLineDTO if found, or an empty Mono if not found
      */
-    Mono<CcRevolvingLineDTO> getById(Long ccRevolvingLineId);
+    Mono<CcRevolvingLineDTO> getById(UUID ccRevolvingLineId);
 
     /**
      * Updates the details of an existing credit card revolving line with the provided information.
@@ -40,7 +42,7 @@ public interface CcRevolvingLineService {
      * @param dto an object containing the updated information for the credit card revolving line
      * @return a {@code Mono} that emits the updated {@code CcRevolvingLineDTO} upon successful completion
      */
-    Mono<CcRevolvingLineDTO> update(Long ccRevolvingLineId, CcRevolvingLineDTO dto);
+    Mono<CcRevolvingLineDTO> update(UUID ccRevolvingLineId, CcRevolvingLineDTO dto);
 
     /**
      * Deletes the credit card revolving line identified by the provided ID.
@@ -48,6 +50,6 @@ public interface CcRevolvingLineService {
      * @param ccRevolvingLineId the unique identifier of the credit card revolving line to be deleted
      * @return a {@code Mono<Void>} representing the completion of the delete operation
      */
-    Mono<Void> delete(Long ccRevolvingLineId);
+    Mono<Void> delete(UUID ccRevolvingLineId);
 
 }

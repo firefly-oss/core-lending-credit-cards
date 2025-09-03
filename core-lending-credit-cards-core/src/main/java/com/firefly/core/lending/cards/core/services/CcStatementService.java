@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.cards.interfaces.dtos.CcStatementDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CcStatementService {
 
     /**
@@ -20,8 +22,8 @@ public interface CcStatementService {
      * @return a reactive Mono emitting a paginated response containing the list of
      *         CcStatementDTO objects that match the given criteria
      */
-    Mono<PaginationResponse<CcStatementDTO>> findAll(Long ccRevolvingLineId,
-                                                     Long ccBillingCycleId,
+    Mono<PaginationResponse<CcStatementDTO>> findAll(UUID ccRevolvingLineId,
+                                                     UUID ccBillingCycleId,
                                                      FilterRequest<CcStatementDTO> filterRequest);
 
     /**
@@ -37,7 +39,7 @@ public interface CcStatementService {
      * @return a {@code Mono<CcStatementDTO>} emitting the created statement DTO
      *         upon successful creation
      */
-    Mono<CcStatementDTO> create(Long ccRevolvingLineId, Long ccBillingCycleId, CcStatementDTO dto);
+    Mono<CcStatementDTO> create(UUID ccRevolvingLineId, UUID ccBillingCycleId, CcStatementDTO dto);
 
     /**
      * Retrieves a specific credit card statement associated with the given
@@ -52,7 +54,7 @@ public interface CcStatementService {
      *         upon successful retrieval or an empty {@code Mono} if the statement
      *         is not found
      */
-    Mono<CcStatementDTO> getById(Long ccRevolvingLineId, Long ccBillingCycleId, Long ccStatementId);
+    Mono<CcStatementDTO> getById(UUID ccRevolvingLineId, UUID ccBillingCycleId, UUID ccStatementId);
 
     /**
      * Updates an existing credit card statement associated with the specified revolving line,
@@ -68,7 +70,7 @@ public interface CcStatementService {
      * @return a {@code Mono<CcStatementDTO>} emitting the updated credit card statement details
      *         upon successful completion
      */
-    Mono<CcStatementDTO> update(Long ccRevolvingLineId, Long ccBillingCycleId, Long ccStatementId, CcStatementDTO dto);
+    Mono<CcStatementDTO> update(UUID ccRevolvingLineId, UUID ccBillingCycleId, UUID ccStatementId, CcStatementDTO dto);
 
     /**
      * Deletes a specific credit card statement identified by the provided revolving line ID,
@@ -81,5 +83,5 @@ public interface CcStatementService {
      * @param ccStatementId     the unique identifier of the statement to be deleted
      * @return a {@code Mono<Void>} representing the completion of the delete operation
      */
-    Mono<Void> delete(Long ccRevolvingLineId, Long ccBillingCycleId, Long ccStatementId);
+    Mono<Void> delete(UUID ccRevolvingLineId, UUID ccBillingCycleId, UUID ccStatementId);
 }
