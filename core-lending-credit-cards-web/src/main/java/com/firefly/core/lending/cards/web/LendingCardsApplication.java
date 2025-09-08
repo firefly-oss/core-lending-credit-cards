@@ -53,7 +53,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
         ),
         servers = {
                 @Server(
-                        url = "http://core.catalis.vc/credit-cards",
+                        url = "http://core.getfirefly.io/credit-cards",
                         description = "Development Environment"
                 ),
                 @Server(

@@ -262,7 +262,7 @@ java -jar core-lending-credit-cards-web/target/core-lending-credit-cards-web-1.0
 ### API Documentation
 Once running, access the interactive API documentation:
 - **Local**: http://localhost:8080/swagger-ui.html
-- **Development**: http://core.catalis.vc/credit-cards/swagger-ui.html
+- **Development**: http://core.getfirefly.io/credit-cards/swagger-ui.html
 
 ## Database Schema
 
