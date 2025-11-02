@@ -20,6 +20,8 @@ tags:
     description: Operations on credit card revolving lines.
   - name: CcPayment
     description: Payment records on a revolve line (paying statements, partial payments, etc.).
+  - name: CcServicingAgreement
+    description: Servicing agreements linking credit card revolving lines with loan servicing cases
   - name: CcTransaction
     description: Transaction records (purchases, fees, etc.) for a revolve line.
 paths:
@@ -36,6 +38,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -86,6 +94,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -108,6 +122,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -170,6 +190,108 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/servicing-agreements/{ccServicingAgreementId}:
+    get:
+      tags:
+        - CcServicingAgreement
+      summary: Get a servicing agreement by ID
+      operationId: getById_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccServicingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcServicingAgreementDTO'
+    put:
+      tags:
+        - CcServicingAgreement
+      summary: Update a servicing agreement
+      operationId: update_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccServicingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcServicingAgreementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcServicingAgreementDTO'
+    delete:
+      tags:
+        - CcServicingAgreement
+      summary: Delete a servicing agreement
+      operationId: delete_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: ccServicingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -178,7 +300,7 @@ paths:
       tags:
         - CcPayment
       summary: Get a payment record by ID
-      operationId: getById_2
+      operationId: getById_3
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -192,6 +314,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -203,7 +331,7 @@ paths:
       tags:
         - CcPayment
       summary: Update a payment record
-      operationId: update_2
+      operationId: update_3
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -240,7 +368,7 @@ paths:
       tags:
         - CcPayment
       summary: Delete a payment record
-      operationId: delete_2
+      operationId: delete_3
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -254,6 +382,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -262,7 +396,7 @@ paths:
       tags:
         - CcBillingCycle
       summary: Get a billing cycle by ID
-      operationId: getById_3
+      operationId: getById_4
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -276,6 +410,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -287,7 +427,7 @@ paths:
       tags:
         - CcBillingCycle
       summary: Update a billing cycle record
-      operationId: update_3
+      operationId: update_4
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -324,7 +464,7 @@ paths:
       tags:
         - CcBillingCycle
       summary: Delete a billing cycle record
-      operationId: delete_3
+      operationId: delete_4
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -338,6 +478,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -346,7 +492,7 @@ paths:
       tags:
         - CcStatement
       summary: Get a statement by ID
-      operationId: getById_4
+      operationId: getById_5
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -366,6 +512,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -377,7 +529,7 @@ paths:
       tags:
         - CcStatement
       summary: Update a statement record
-      operationId: update_4
+      operationId: update_5
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -420,7 +572,7 @@ paths:
       tags:
         - CcStatement
       summary: Delete a statement record
-      operationId: delete_4
+      operationId: delete_5
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -440,6 +592,12 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -644,6 +802,12 @@ paths:
           schema:
             type: string
             format: date-time
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -868,6 +1032,12 @@ paths:
           schema:
             type: string
             format: date-time
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -906,12 +1076,202 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CcTransactionDTO'
+  /api/v1/cc-revolving-lines/{ccRevolvingLineId}/servicing-agreements:
+    get:
+      tags:
+        - CcServicingAgreement
+      summary: List or search servicing agreements for a revolving line
+      operationId: findAll_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.ccRevolvingLineId
+          in: query
+          description: Exact filter for cc revolving line id
+          required: false
+          schema:
+            type: string
+        - name: filters.loanServicingCaseId
+          in: query
+          description: Exact filter for loan servicing case id
+          required: false
+          schema:
+            type: string
+        - name: filters.agreementNumber
+          in: query
+          description: Exact filter for agreement number
+          required: false
+          schema:
+            type: string
+        - name: filters.agreementDate
+          in: query
+          description: Exact filter for agreement date
+          required: false
+          schema:
+            type: string
+        - name: filters.effectiveDate
+          in: query
+          description: Exact filter for effective date
+          required: false
+          schema:
+            type: string
+        - name: filters.terminationDate
+          in: query
+          description: Exact filter for termination date
+          required: false
+          schema:
+            type: string
+        - name: filters.isActive
+          in: query
+          description: Exact filter for is active
+          required: false
+          schema:
+            type: boolean
+        - name: filters.remarks
+          in: query
+          description: Exact filter for remarks
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCcServicingAgreementDTO'
+    post:
+      tags:
+        - CcServicingAgreement
+      summary: Create a new servicing agreement
+      operationId: create_2
+      parameters:
+        - name: ccRevolvingLineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CcServicingAgreementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CcServicingAgreementDTO'
   /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments:
     get:
       tags:
         - CcPayment
       summary: List or search payments for a revolve line
-      operationId: findAll_2
+      operationId: findAll_3
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -1073,6 +1433,12 @@ paths:
           schema:
             type: string
             format: date-time
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -1084,7 +1450,7 @@ paths:
       tags:
         - CcPayment
       summary: Create a new payment record
-      operationId: create_2
+      operationId: create_3
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -1116,7 +1482,7 @@ paths:
       tags:
         - CcBillingCycle
       summary: List or search billing cycles for a revolve line
-      operationId: findAll_3
+      operationId: findAll_4
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -1263,6 +1629,12 @@ paths:
           schema:
             type: string
             format: date-time
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -1274,7 +1646,7 @@ paths:
       tags:
         - CcBillingCycle
       summary: Create a new billing cycle record
-      operationId: create_3
+      operationId: create_4
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -1306,7 +1678,7 @@ paths:
       tags:
         - CcStatement
       summary: List or search statements within a billing cycle
-      operationId: findAll_4
+      operationId: findAll_5
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -1477,6 +1849,12 @@ paths:
           schema:
             type: string
             format: date-time
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -1488,7 +1866,7 @@ paths:
       tags:
         - CcStatement
       summary: Create a new statement
-      operationId: create_4
+      operationId: create_5
       parameters:
         - name: ccRevolvingLineId
           in: path
@@ -1647,6 +2025,54 @@ components:
             - DECLINED
             - PENDING
         note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    CcServicingAgreementDTO:
+      required:
+        - agreementDate
+        - agreementNumber
+        - ccRevolvingLineId
+        - effectiveDate
+        - isActive
+        - loanServicingCaseId
+      type: object
+      properties:
+        ccServicingAgreementId:
+          type: string
+          format: uuid
+          readOnly: true
+        ccRevolvingLineId:
+          type: string
+          format: uuid
+        loanServicingCaseId:
+          type: string
+          format: uuid
+        agreementNumber:
+          maxLength: 100
+          minLength: 0
+          pattern: ^[A-Z0-9-]+$
+          type: string
+        agreementDate:
+          type: string
+          format: date
+        effectiveDate:
+          type: string
+          format: date
+        terminationDate:
+          type: string
+          format: date
+        isActive:
+          type: boolean
+        remarks:
           maxLength: 1000
           minLength: 0
           type: string
@@ -1825,6 +2251,27 @@ components:
           description: The list of items for the current page.
           items:
             $ref: '#/components/schemas/CcTransactionDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCcServicingAgreementDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CcServicingAgreementDTO'
         totalElements:
           type: integer
           description: The total number of elements across all pages.
