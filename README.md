@@ -155,12 +155,27 @@ erDiagram
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }
-    
+
+    CcServicingAgreement {
+        UUID cc_servicing_agreement_id PK
+        UUID cc_revolving_line_id FK
+        UUID loan_servicing_case_id FK "External: Loan Servicing domain"
+        VARCHAR agreement_number UK
+        DATE agreement_date
+        DATE effective_date
+        DATE termination_date
+        BOOLEAN is_active
+        TEXT remarks
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+
     CcRevolvingLine ||--o{ CcBillingCycle : "has billing cycles"
     CcBillingCycle ||--o{ CcStatement : "generates statements"
     CcRevolvingLine ||--o{ CcTransaction : "has transactions"
     CcRevolvingLine ||--o{ CcPayment : "receives payments"
     CcStatement ||--o{ CcPayment : "can be paid by"
+    CcRevolvingLine ||--o{ CcServicingAgreement : "linked to loan servicing"
 ```
 
 ## API Endpoints
@@ -199,6 +214,13 @@ erDiagram
 - `GET /api/v1/payments/{id}` - Get payment by ID
 - `PUT /api/v1/payments/{id}` - Update payment
 - `DELETE /api/v1/payments/{id}` - Delete payment
+
+### Servicing Agreements
+- `GET /api/v1/cc-revolving-lines/{id}/servicing-agreements` - List servicing agreements for a revolving line
+- `POST /api/v1/cc-revolving-lines/{id}/servicing-agreements` - Create new servicing agreement
+- `GET /api/v1/cc-revolving-lines/{id}/servicing-agreements/{agreementId}` - Get servicing agreement by ID
+- `PUT /api/v1/cc-revolving-lines/{id}/servicing-agreements/{agreementId}` - Update servicing agreement
+- `DELETE /api/v1/cc-revolving-lines/{id}/servicing-agreements/{agreementId}` - Delete servicing agreement
 
 ## Technology Stack
 
@@ -278,6 +300,7 @@ The service uses PostgreSQL with the following features:
 - `V2__Create_Tables.sql` - Core table structures
 - `V3__Create_Casts.sql` - Enum casting for R2DBC compatibility
 - `V4__Convert_IDs_To_UUID.sql` - UUID migration from BIGINT
+- `V5__Create_Servicing_Agreement_Table.sql` - Servicing agreement table for loan servicing integration
 
 ## Integration Points
 
@@ -288,6 +311,7 @@ This service integrates with other Firefly platform services:
 - **Product Service**: Credit card product definitions and terms
 - **Transactions Service**: Core transaction processing and authorization
 - **Payment Service**: Payment processing and settlement
+- **Loan Servicing Service**: Credit card servicing agreements linked to loan servicing cases via `CcServicingAgreement` entity
 
 ## Development Guidelines
 
