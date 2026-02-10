@@ -20,7 +20,7 @@ package com.firefly.core.lending.cards.interfaces.dtos;
 import com.firefly.core.lending.cards.interfaces.enums.CurrencyCodeEnum;
 import com.firefly.core.lending.cards.interfaces.enums.TransactionStatusEnum;
 import com.firefly.core.lending.cards.interfaces.enums.TransactionTypeEnum;
-import com.firefly.core.utils.annotations.FilterableId;
+import org.fireflyframework.utils.annotations.FilterableId;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

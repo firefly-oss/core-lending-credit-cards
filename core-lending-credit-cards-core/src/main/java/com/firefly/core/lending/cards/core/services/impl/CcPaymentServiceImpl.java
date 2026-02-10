@@ -17,9 +17,9 @@
 
 package com.firefly.core.lending.cards.core.services;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.filters.FilterUtils;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
 import com.firefly.core.lending.cards.core.mappers.CcPaymentMapper;
 import com.firefly.core.lending.cards.interfaces.dtos.CcPaymentDTO;
 import com.firefly.core.lending.cards.models.entities.CcPayment;
