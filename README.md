@@ -32,35 +32,35 @@ This service follows a **reactive, hexagonal architecture** pattern with clear s
 
 ## Module Structure
 
-### 🔌 core-lending-credit-cards-interfaces
+### core-lending-credit-cards-interfaces
 **Contracts and Data Transfer Objects**
 - DTOs with comprehensive validation annotations
 - Enums for standardized values (transaction types, statuses, currencies)
 - Service interface definitions
 - Custom validation annotations
 
-### 🗄️ core-lending-credit-cards-models
+### core-lending-credit-cards-models
 **Data Layer and Persistence**
 - JPA entity classes mapped to PostgreSQL tables
 - R2DBC repository interfaces for reactive data access
 - Flyway database migration scripts
 - Database schema definitions with UUID support
 
-### ⚙️ core-lending-credit-cards-core
+### core-lending-credit-cards-core
 **Business Logic and Services**
 - Service implementations with business rules
 - Entity-DTO mappers using MapStruct
 - Transaction management and validation
 - Credit limit and balance calculations
 
-### 🌐 core-lending-credit-cards-web
+### core-lending-credit-cards-web
 **REST API and Web Layer**
 - Reactive REST controllers with Spring WebFlux
 - OpenAPI configuration and documentation
 - Application configuration and startup
 - Error handling and validation
 
-### 📦 core-lending-credit-cards-sdk
+### core-lending-credit-cards-sdk
 **API Specification and Client Generation**
 - OpenAPI 3.0 specification (YAML)
 - Generated client libraries
@@ -188,32 +188,32 @@ erDiagram
 - `DELETE /api/v1/cc-revolving-lines/{id}` - Delete revolving line
 
 ### Billing Cycles
-- `GET /api/v1/cc-revolving-lines/{id}/billing-cycles` - List billing cycles for a revolving line
-- `POST /api/v1/cc-revolving-lines/{id}/billing-cycles` - Create new billing cycle
-- `GET /api/v1/billing-cycles/{id}` - Get billing cycle by ID
-- `PUT /api/v1/billing-cycles/{id}` - Update billing cycle
-- `DELETE /api/v1/billing-cycles/{id}` - Delete billing cycle
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles` - List billing cycles for a revolving line
+- `POST /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles` - Create new billing cycle
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}` - Get billing cycle by ID
+- `PUT /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}` - Update billing cycle
+- `DELETE /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}` - Delete billing cycle
 
 ### Statements
-- `GET /api/v1/billing-cycles/{id}/statements` - List statements for a billing cycle
-- `POST /api/v1/billing-cycles/{id}/statements` - Create new statement
-- `GET /api/v1/statements/{id}` - Get statement by ID
-- `PUT /api/v1/statements/{id}` - Update statement
-- `DELETE /api/v1/statements/{id}` - Delete statement
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements` - List statements for a billing cycle
+- `POST /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements` - Create new statement
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements/{ccStatementId}` - Get statement by ID
+- `PUT /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements/{ccStatementId}` - Update statement
+- `DELETE /api/v1/cc-revolving-lines/{ccRevolvingLineId}/billing-cycles/{ccBillingCycleId}/statements/{ccStatementId}` - Delete statement
 
 ### Transactions
-- `GET /api/v1/cc-revolving-lines/{id}/transactions` - List transactions for a revolving line
-- `POST /api/v1/cc-revolving-lines/{id}/transactions` - Create new transaction
-- `GET /api/v1/transactions/{id}` - Get transaction by ID
-- `PUT /api/v1/transactions/{id}` - Update transaction
-- `DELETE /api/v1/transactions/{id}` - Delete transaction
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions` - List transactions for a revolving line
+- `POST /api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions` - Create new transaction
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions/{ccTransactionId}` - Get transaction by ID
+- `PUT /api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions/{ccTransactionId}` - Update transaction
+- `DELETE /api/v1/cc-revolving-lines/{ccRevolvingLineId}/transactions/{ccTransactionId}` - Delete transaction
 
 ### Payments
-- `GET /api/v1/cc-revolving-lines/{id}/payments` - List payments for a revolving line
-- `POST /api/v1/cc-revolving-lines/{id}/payments` - Create new payment
-- `GET /api/v1/payments/{id}` - Get payment by ID
-- `PUT /api/v1/payments/{id}` - Update payment
-- `DELETE /api/v1/payments/{id}` - Delete payment
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments` - List payments for a revolving line
+- `POST /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments` - Create new payment
+- `GET /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments/{ccPaymentId}` - Get payment by ID
+- `PUT /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments/{ccPaymentId}` - Update payment
+- `DELETE /api/v1/cc-revolving-lines/{ccRevolvingLineId}/payments/{ccPaymentId}` - Delete payment
 
 ### Servicing Agreements
 - `GET /api/v1/cc-revolving-lines/{id}/servicing-agreements` - List servicing agreements for a revolving line
@@ -225,7 +225,7 @@ erDiagram
 ## Technology Stack
 
 ### Core Technologies
-- **Java 21** - Latest LTS version with virtual threads support
+- **Java 25** - Latest LTS version with virtual threads support
 - **Spring Boot 3.x** - Application framework with reactive support
 - **Spring WebFlux** - Reactive web framework for non-blocking operations
 - **Spring Data R2DBC** - Reactive database access layer
@@ -242,7 +242,7 @@ erDiagram
 ## Getting Started
 
 ### Prerequisites
-- Java 21 or higher
+- Java 25 or higher
 - Maven 3.8 or higher
 - PostgreSQL 12 or higher
 - Docker (optional, for containerized deployment)
