@@ -4,3 +4,4 @@ com/firefly/core/lending/cards/web/controllers/CcTransactionController.class
 com/firefly/core/lending/cards/web/controllers/CcPaymentController.class
 com/firefly/core/lending/cards/web/LendingCardsApplication.class
 com/firefly/core/lending/cards/web/controllers/CcBillingCycleController.class
+com/firefly/core/lending/cards/web/controllers/CcServicingAgreementController.class

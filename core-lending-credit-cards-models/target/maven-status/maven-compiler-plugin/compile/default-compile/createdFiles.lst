@@ -6,11 +6,14 @@ com/firefly/core/lending/cards/models/repositories/CcPaymentRepository.class
 com/firefly/core/lending/cards/models/repositories/CcBillingCycleRepository.class
 com/firefly/core/lending/cards/models/entities/CcBillingCycle.class
 com/firefly/core/lending/cards/models/entities/CcRevolvingLine.class
+com/firefly/core/lending/cards/models/repositories/CcServicingAgreementRepository.class
+com/firefly/core/lending/cards/models/entities/CcServicingAgreement.class
 com/firefly/core/lending/cards/models/entities/CcPayment.class
 com/firefly/core/lending/cards/models/repositories/CcStatementRepository.class
 com/firefly/core/lending/cards/models/repositories/CcRevolvingLineRepository.class
 com/firefly/core/lending/cards/models/repositories/CcTransactionRepository.class
 com/firefly/core/lending/cards/models/entities/CcStatement$CcStatementBuilder.class
+com/firefly/core/lending/cards/models/entities/CcServicingAgreement$CcServicingAgreementBuilder.class
 com/firefly/core/lending/cards/models/entities/CcBillingCycle$CcBillingCycleBuilder.class
 com/firefly/core/lending/cards/models/entities/CcStatement.class
 com/firefly/core/lending/cards/models/entities/CcPayment$CcPaymentBuilder.class
