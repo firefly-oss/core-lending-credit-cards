@@ -4,7 +4,7 @@ A reactive microservice for managing credit card revolving lines, billing cycles
 
 ## About Firefly
 
-This microservice is developed by **Firefly Software Solutions Inc** as part of the Firefly OpenCore Banking Platform - a comprehensive, cloud-native banking solution designed for modern financial institutions.
+This microservice is developed by **Firefly Software Foundation** as part of the Firefly OpenCore Banking Platform - a comprehensive, cloud-native banking solution designed for modern financial institutions.
 
 - **Website**: [getfirefly.io](https://getfirefly.io)
 - **GitHub Organization**: [firefly-oss](https://github.com/firefly-oss)
@@ -335,4 +335,4 @@ This project is licensed under the **Apache License 2.0** - see the [LICENSE](LI
 
 ---
 
-**Firefly Software Solutions Inc** | Building the future of banking technology
+**Firefly Software Foundation** | Building the future of banking technology
