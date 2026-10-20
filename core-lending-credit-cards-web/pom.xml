@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>core-lending-credit-cards-web</artifactId>
+    <name>core-lending-credit-cards-web</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

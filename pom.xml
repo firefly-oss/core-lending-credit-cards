@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>core-lending-credit-cards</artifactId>
+    <name>core-lending-credit-cards</name>
     <packaging>pom</packaging>
     <modules>
         <module>core-lending-credit-cards-core</module>
