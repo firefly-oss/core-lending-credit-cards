@@ -1,0 +1,84 @@
+/*
+ * Copyright 2025 Firefly Software Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+package io.fireflysoftware.core.lending.cards.core.services;
+
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.queries.PaginationResponse;
+import io.fireflysoftware.core.lending.cards.interfaces.dtos.CcBillingCycleDTO;
+import reactor.core.publisher.Mono;
+
+import java.util.UUID;
+
+public interface CcBillingCycleService {
+
+    /**
+     * Retrieves a paginated list of credit card billing cycles associated with a specific
+     * revolving line, based on the provided filter criteria.
+     *
+     * @param ccRevolvingLineId the unique identifier of the credit card revolving line
+     *                          for which the billing cycles are to be retrieved
+     * @param filterRequest     the filter criteria and pagination details to query
+     *                          the billing cycles
+     * @return a reactive Mono containing the paginated response of
+     *         CcBillingCycleDTO objects matching the criteria
+     */
+    Mono<PaginationResponse<CcBillingCycleDTO>> findAll(UUID ccRevolvingLineId,
+                                                        FilterRequest<CcBillingCycleDTO> filterRequest);
+
+    /**
+     * Creates a new billing cycle for the specified credit card revolving line.
+     *
+     * @param ccRevolvingLineId the unique identifier of the credit card revolving line
+     *                          for which the billing cycle is being created
+     * @param dto the {@code CcBillingCycleDTO} object containing the details
+     *            of the billing cycle to be created
+     * @return a {@code Mono<CcBillingCycleDTO>} emitting the created billing cycle DTO
+     *         upon successful completion
+     */
+    Mono<CcBillingCycleDTO> create(UUID ccRevolvingLineId, CcBillingCycleDTO dto);
+
+    /**
+     * Retrieves a specific billing cycle associated with a given revolving line and billing cycle ID.
+     *
+     * @param ccRevolvingLineId the ID of the revolving line associated with the billing cycle
+     * @param ccBillingCycleId the ID of the billing cycle to be retrieved
+     * @return a Mono emitting the CcBillingCycleDTO if found, or an empty Mono if not found
+     */
+    Mono<CcBillingCycleDTO> getById(UUID ccRevolvingLineId, UUID ccBillingCycleId);
+
+    /**
+     * Updates an existing billing cycle identified by the provided IDs with new information.
+     *
+     * @param ccRevolvingLineId the ID of the credit card revolving line associated with the billing cycle
+     * @param ccBillingCycleId the ID of the billing cycle to be updated
+     * @param dto the {@code CcBillingCycleDTO} object containing the updated details of the billing cycle
+     * @return a {@code Mono<CcBillingCycleDTO>} emitting the updated billing cycle details upon successful completion
+     */
+    Mono<CcBillingCycleDTO> update(UUID ccRevolvingLineId, UUID ccBillingCycleId, CcBillingCycleDTO dto);
+
+    /**
+     * Deletes a Credit Card Billing Cycle identified by the provided Credit Card Revolving Line ID and
+     * Credit Card Billing Cycle ID.
+     *
+     * @param ccRevolvingLineId the unique identifier of the credit card revolving line to which the
+     *                          billing cycle belongs
+     * @param ccBillingCycleId  the unique identifier of the billing cycle to be deleted
+     * @return a {@code Mono<Void>} that completes when the deletion is successful
+     */
+    Mono<Void> delete(UUID ccRevolvingLineId, UUID ccBillingCycleId);
+}
