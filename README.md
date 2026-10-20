@@ -6,7 +6,7 @@ A reactive microservice for managing credit card revolving lines, billing cycles
 
 This microservice is developed by **Firefly Software Foundation** as part of the Firefly OpenCore Banking Platform - a comprehensive, cloud-native banking solution designed for modern financial institutions.
 
-- **Website**: [getfirefly.io](https://getfirefly.io)
+- **Website**: [fireflysoftware.io](https://fireflysoftware.io)
 - **GitHub Organization**: [firefly-oss](https://github.com/firefly-oss)
 - **License**: Apache 2.0
 
@@ -284,7 +284,7 @@ java -jar core-lending-credit-cards-web/target/core-lending-credit-cards-web-1.0
 ### API Documentation
 Once running, access the interactive API documentation:
 - **Local**: http://localhost:8080/swagger-ui.html
-- **Development**: http://core.getfirefly.io/credit-cards/swagger-ui.html
+- **Development**: https://openplatform.fireflysoftware.io/credit-cards/swagger-ui.html
 
 ## Database Schema
 
