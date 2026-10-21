@@ -1,9 +1,9 @@
 <a href="https://fireflysoftware.io/openplatform/">
 <picture>
-  <source media="(max-width: 640px) and (prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/firefly-oss/.github/main/profile/assets/banner-narrow-dark.svg">
-  <source media="(max-width: 640px)" srcset="https://raw.githubusercontent.com/firefly-oss/.github/main/profile/assets/banner-narrow-light.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/firefly-oss/.github/main/profile/assets/banner-dark.svg">
-  <img src="https://raw.githubusercontent.com/firefly-oss/.github/main/profile/assets/banner-light.svg" alt="Firefly OpenPlatform - Core Lending - Credit Cards" width="100%">
+  <source media="(max-width: 640px) and (prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/fireflysoftwaresolutions/.github/main/profile/assets/banner-narrow-dark.svg">
+  <source media="(max-width: 640px)" srcset="https://raw.githubusercontent.com/fireflysoftwaresolutions/.github/main/profile/assets/banner-narrow-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/fireflysoftwaresolutions/.github/main/profile/assets/banner-dark.svg">
+  <img src="https://raw.githubusercontent.com/fireflysoftwaresolutions/.github/main/profile/assets/banner-light.svg" alt="Firefly OpenPlatform - Core Lending - Credit Cards" width="100%">
 </picture>
 </a>
 
@@ -96,7 +96,7 @@ The service manages five core entities with the following relationships:
 - **RevolveStatusEnum**: `ACTIVE`, `BLOCKED`, `CLOSED`, `DEFAULT`, `SUSPENDED`, `OVERLIMIT`
 - **TransactionTypeEnum**: `PURCHASE`, `CASH_ADVANCE`, `FEE`, `INTEREST`, `REFUND`, `CREDIT`, `PAYMENT`
 - **TransactionStatusEnum**: `AUTHORIZED`, `POSTED`, `REVERSED`, `DECLINED`, `PENDING`
-- **CurrencyCodeEnum**: `EUR`, `USD`, `GBP`, `CHF`
+- **Transaction currency**: a card transaction stores any ISO 4217 alphabetic code as `varchar(3)`
 
 ## Entity Relationship Diagram
 
@@ -147,7 +147,7 @@ erDiagram
         UUID cc_revolving_line_id FK
         UUID transaction_id FK "External: Transactions domain"
         DECIMAL transaction_amount
-        CurrencyCodeEnum currency_code
+        varchar(3) currency_code "ISO 4217"
         TIMESTAMP transaction_date
         TransactionTypeEnum transaction_type
         TransactionStatusEnum transaction_status
