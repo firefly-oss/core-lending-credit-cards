@@ -17,7 +17,6 @@
 
 package io.fireflysoftware.core.lending.cards.models.entities;
 
-import io.fireflysoftware.core.lending.cards.interfaces.enums.CurrencyCodeEnum;
 import io.fireflysoftware.core.lending.cards.interfaces.enums.TransactionStatusEnum;
 import io.fireflysoftware.core.lending.cards.interfaces.enums.TransactionTypeEnum;
 import lombok.AllArgsConstructor;
@@ -53,7 +52,7 @@ public class CcTransaction {
     private BigDecimal transactionAmount;
 
     @Column("currency_code")
-    private CurrencyCodeEnum currencyCode;
+    private String currencyCode;
 
     @Column("transaction_date")
     private LocalDateTime transactionDate;

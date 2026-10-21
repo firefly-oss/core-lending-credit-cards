@@ -932,11 +932,9 @@ paths:
           required: false
           schema:
             type: string
-            enum:
-              - EUR
-              - USD
-              - GBP
-              - CHF
+            minLength: 3
+            maxLength: 3
+            pattern: ^[A-Z]{3}$
         - name: filters.transactionDate
           in: query
           description: Exact filter for transaction date
@@ -1998,11 +1996,10 @@ components:
           type: number
         currencyCode:
           type: string
-          enum:
-            - EUR
-            - USD
-            - GBP
-            - CHF
+          minLength: 3
+          maxLength: 3
+          pattern: ^[A-Z]{3}$
+          description: ISO 4217 currency code
         transactionDate:
           type: string
           format: date-time

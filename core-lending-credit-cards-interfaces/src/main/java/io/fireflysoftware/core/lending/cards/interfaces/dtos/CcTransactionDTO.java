@@ -17,7 +17,6 @@
 
 package io.fireflysoftware.core.lending.cards.interfaces.dtos;
 
-import io.fireflysoftware.core.lending.cards.interfaces.enums.CurrencyCodeEnum;
 import io.fireflysoftware.core.lending.cards.interfaces.enums.TransactionStatusEnum;
 import io.fireflysoftware.core.lending.cards.interfaces.enums.TransactionTypeEnum;
 import org.fireflyframework.utils.annotations.FilterableId;
@@ -55,7 +54,8 @@ public class CcTransactionDTO {
     private BigDecimal transactionAmount;
 
     @NotNull(message = "Currency code is required")
-    private CurrencyCodeEnum currencyCode;
+    @Pattern(regexp = "^[A-Z]{3}$", message = "Currency must be a 3-letter ISO 4217 code")
+    private String currencyCode;
 
     @NotNull(message = "Transaction date is required")
     @PastOrPresent(message = "Transaction date cannot be in the future")
